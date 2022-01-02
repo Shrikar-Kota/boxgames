@@ -41,7 +41,7 @@ const restartGameDeclined = () => {
 
 const restartGame = () => {
     resetAllFieldsToDefault();
-    drawTable(document.querySelector("#gameboard"));
+    setGameArea();
 }
 
 const performOnLoad = () => {
