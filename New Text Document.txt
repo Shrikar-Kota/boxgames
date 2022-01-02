@@ -7,3 +7,5 @@ Tech stack used:
     <li>Flask</li>
     <li>Javascript</li>
 </ul>
+
+Game url: http://boxgames.herokuapp.com/boxit/
