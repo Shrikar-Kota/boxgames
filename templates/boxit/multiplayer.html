@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>BoxIT</title>
+    <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+    <script src="/boxit/js/multiplayer.js"></script>
+    <style>
+      .btn-fit{
+        min-width: 70% !important;
+      }
+    </style>
+  </head>
+  <body onload="performOnLoad()">
+    <div class="d-flex my-5">
+      <div class="col-sm-6 col-lg-3 col-10 mx-auto p-3 pb-5 border shadow-lg text-center">
+        <div class="col my-5">
+          <h3 style="color: blue">BOXIT</h3>
+        </div>
+        <div class="col my-3">
+          <button class="btn btn-md btn-fit btn-primary text-center" id="join-room">
+            Join Room
+          </button>
+        </div>
+        <div class="col my-3">
+          <button class="btn btn-md btn-fit btn-success text-center" id="create-room">
+            Create Room
+          </button>
+        </div>
+        <div class="col my-3">
+          <a class="btn btn-md btn-fit btn-danger text-center" href="{{ url_for('boxit_api.home') }}">
+            Home
+          </a>
+        </div>
+      </div>
+    </div>
+    <script>
+      var onlineurl = "{{ url_for('boxit_api.online') }}";
+      var waitinglobbyurl = "{{ url_for('boxit_api.waitinglobby') }}";
+    </script>
+  </body>
+</html>
