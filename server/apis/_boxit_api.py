@@ -16,6 +16,10 @@ def local():
 def multiplayer():
     return render_template('boxit/multiplayer.html')
     
+@boxit_api.route("/howtoplay")
+def howtoplay():
+    return render_template('boxit/howtoplay.html')
+    
 @boxit_api.route("/waitinglobby")
 def waitinglobby():
     roomid = request.args.get("id")
