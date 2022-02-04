@@ -3,10 +3,12 @@
     <title>BoxIT</title>
     <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
     <script src="/boxit/js/multiplayer.js"></script>
     <style>
-      .btn-fit{
+      .btn-fit {
         min-width: 70% !important;
       }
     </style>
@@ -31,6 +33,62 @@
           <a class="btn btn-md btn-fit btn-danger text-center" href="{{ url_for('boxit_api.home') }}">
             Home
           </a>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="joinroom-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mx-auto">Enter Room ID</h5>
+          </div>
+          <div class="modal-body text-center">
+            <input class="form-control text-center" id="roomid-field">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="joinroom-button">Join Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="invalidroom-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mx-auto">Room not found</h5>
+          </div>
+          <div class="modal-body text-center">
+            The room with the id entered couldn't be found.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="joinloader-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            Finding Room...<br>
+            Please wait.. <br><br>
+            <span class='spinner-border text-info' role='status'></span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="createloader-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            Creating Room...<br>
+            Please wait.. <br><br>
+            <span class='spinner-border text-info' role='status'></span>
+          </div>
         </div>
       </div>
     </div>

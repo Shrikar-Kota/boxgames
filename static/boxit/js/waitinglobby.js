@@ -4,7 +4,7 @@ var socket = io.connect("http://" + document.domain + ":" + location.port + "/bo
 socket.on('opponentjoined', (roomid) => window.location.href = onlineurl + "?id=" + roomid["roomid"] + "&playername=1");
 
 const performOnLoad = () => {
-    socket.emit("joinroom", {'roomid': roomid});
+    socket.emit("joinwaitinglobby", {'roomid': roomid});
     document.querySelector("#timer").innerHTML = 30;
     timer();
 }

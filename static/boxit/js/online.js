@@ -22,21 +22,19 @@ const clearGameArea = () => {
 }
 
 const restartGameRequest = () => {
-    if (confirm("Opponent wants to restart the game!")){
-        socket.emit("gamerestartacceptsent");
-        restartGame();
-    }else{
-        socket.emit("gamerestartdeclinesent");
-    }
+    hideModals();
+    $('#restartresponse-modal').modal('show');
 }
 
 const restartGameAccepted = () => {
     restartGame();
-    alert("Restart request accepted!");
+    hideModals();
+    $('#restartaccept-modal').modal('show');
 }
 
 const restartGameDeclined = () => {
-    alert("Restart request declined!");
+    hideModals();
+    $('#restartdecline-modal').modal('show');
 }
 
 const restartGame = () => {
@@ -49,6 +47,8 @@ const performOnLoad = () => {
     setGameArea();
     document.querySelector("#playername").style.color = playername === '1' ? "blue" : "red"; 
     document.querySelector("#restartbutton").addEventListener("click", onRestartButtonClick);
+    document.querySelector("#requestacceptbutton").addEventListener("click", onRestartRequestAccept);
+    document.querySelector("#requestrejectbutton").addEventListener("click", onRestartRequestReject);
 }
 
 const setGameArea = () => {
@@ -59,7 +59,20 @@ const setGameArea = () => {
 }
 
 const onRestartButtonClick = () => {
-    socket.emit("gamerestartrequestsent");   
+    socket.emit("gamerestartrequestsent");
+    hideModals();
+    $('#restartrequested-modal').modal('show');
+}
+
+const onRestartRequestAccept = () => {
+    socket.emit("gamerestartacceptsent");
+    restartGame();
+    hideModals();
+}
+
+const onRestartRequestReject = () => {
+    socket.emit("gamerestartdeclinesent");
+    hideModals();
 }
 
 const resetAllFieldsToDefault = () => {
@@ -135,8 +148,10 @@ const updatePlayerScores = () => {
     document.querySelector("#p2-score").innerHTML = player2score;
     if (player1score + player2score === maximumscore){
         var playernames = ["Player 1", "Player 2"];
-        document.querySelector("#info-div").innerHTML = playernames[currentturn-1] + " has won!";
-        alert(playernames[currentturn-1] + " has won!");
+        document.querySelector("#info-div").innerHTML = '';
+        hideModals();
+        $('#winner-modal').modal('show');
+        document.querySelector('#winner-player').innerHTML = playernames[currentturn-1];
     }
 }
 
@@ -235,7 +250,7 @@ const getLine = (cellname, x, y, xlimit, ylimit) => {
             }
         }
         return 0;
-  }
+    }
 }
 
 const colorLines = (cellname, borderindex) => {
@@ -248,4 +263,12 @@ const sumOfCellElements = (arr) => {
     var sum = 0;
     arr.forEach(ele => sum += ele);
     return sum;
+}
+
+const hideModals = () => {
+    $("#playerwon-modal").modal('hide');
+    $("#restartdecline-modal").modal('hide');
+    $("#restartaccept-modal").modal('hide');
+    $("#restartrequested-modal").modal('hide');
+    $("#restartresponse-modal").modal('hide');
 }

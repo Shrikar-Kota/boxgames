@@ -3,6 +3,8 @@
     <title>BoxIT</title>
     <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
     <link rel="stylesheet" href="/boxit/css/local.css">
     <script src="/boxit/js/online.js" type="text/javascript"></script>
@@ -57,6 +59,66 @@
                 <div class='col-lg-7 col-12 mx-auto' id="gameboard">
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal" id="playerwon-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+                Player <span id="winner-player"></span> won the game!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="restartdecline-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+                Restart Request Declined
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="restartaccept-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+                Restart Request Accepted
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="restartrequested-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+                Restart Request Sent...<br>
+                Waiting for response.<br><br>
+                <span class='spinner-border text-info' role='status'></span>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal" id="restartresponse-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+                Opponent wants to restart the game.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="requestacceptbutton">Accept</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="requestrejectbutton">Reject</button>
+            </div>
+          </div>
         </div>
     </div>
     <script>

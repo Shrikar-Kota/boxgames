@@ -18,7 +18,7 @@ def multiplayer():
     
 @boxit_api.route("/howtoplay")
 def howtoplay():
-    return render_template('boxit/howtoplay.html')
+    return render_template('boxit/howtoplay.html')    
     
 @boxit_api.route("/waitinglobby")
 def waitinglobby():
