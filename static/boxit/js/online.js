@@ -10,6 +10,8 @@ socket.on("gamerestartdeclined", () => restartGameDeclined());
 
 socket.on('opponentmoveplayed', (payload) => updateGameArea(payload['linenumber'], payload['targetid']));
 
+socket.on('newmessagereceived', (payload) => newMessageReceived(payload.message));
+
 var linesactive = {};
 var currentturn = 1;
 var turnsleft = 1;
@@ -45,10 +47,39 @@ const restartGame = () => {
 const performOnLoad = () => {
     socket.emit("joinroom", {"roomid": roomid});
     setGameArea();
-    document.querySelector("#playername").style.color = playername === '1' ? "blue" : "red"; 
+    document.querySelector("#playername").style.color = playername === 1 ? "blue" : "red"; 
     document.querySelector("#restartbutton").addEventListener("click", onRestartButtonClick);
     document.querySelector("#requestacceptbutton").addEventListener("click", onRestartRequestAccept);
     document.querySelector("#requestrejectbutton").addEventListener("click", onRestartRequestReject);
+    document.querySelector("#minimize-chat-window-btn").addEventListener('click', minimizeChat);
+    document.querySelector("#maximize-chat-window-btn").addEventListener('click', maximizeChat);
+    document.querySelector("#chat-input").addEventListener('keyup', sendMessage);
+}
+
+const maximizeChat = () => {
+    document.querySelector("#chat-maximized").classList.remove('invisible');
+    document.querySelector("#chat-minimized").classList.add('invisible');
+}
+const minimizeChat = () => {
+    document.querySelector("#chat-maximized").classList.add('invisible');
+    document.querySelector("#chat-minimized").classList.remove('invisible');
+}
+
+const sendMessage = (event) => {
+    if (event.key == 'Enter'){
+        if (event.target.value.length != 0){
+            var colors = ["blue", "red"];
+            document.querySelector("#chat-area").innerHTML += "<span style='color: " + colors[(playername+1)%2] + "'>" +  "You: </span>" + event.target.value + "<br>";
+            socket.emit("newmessagesent", {"message": event.target.value})
+            document.querySelector("#chat-input").value = "";
+        }
+    }
+}
+
+const newMessageReceived = (message) => {
+    var colors = ["blue", "red"];
+    var playernames = ["Player1", "Player2"];
+    document.querySelector("#chat-area").innerHTML += "<span style='color: " + colors[playername%2] + "'>" + playernames[playername%2] + ": </span>" + message +"<br>";
 }
 
 const setGameArea = () => {
@@ -157,9 +188,9 @@ const updatePlayerScores = () => {
 
 const updateTurn = () => {
     var colors = ["blue", "red"];
-    var playername = ["Player1", "Player2"]
+    var playernames = ["Player1", "Player2"]
     document.querySelector("#turn").style.color = colors[currentturn-1];
-    document.querySelector("#turn").innerHTML = playername[currentturn-1];
+    document.querySelector("#turn").innerHTML = playernames[currentturn-1];
 }
 
 const updateLinesActive = (cellname, linenumber) => {

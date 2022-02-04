@@ -87,6 +87,13 @@ def moveplayed(payload):
         if type(i) == int:
             emit("opponentmoveplayed", payload, room = i, include_self = False)
             break
+  
+@socketio.on("newmessagesent", namespace = "/boxit")
+def newmessagesent(payload):
+    for i in rooms():
+        if type(i) == int:
+            emit("newmessagereceived", payload, room = i, include_self = False)
+            break  
         
 @socketio.on('disconnect', namespace = '/boxit')
 def disconnect():
