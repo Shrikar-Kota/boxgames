@@ -72,14 +72,21 @@ const sendMessage = (event) => {
             document.querySelector("#chat-area").innerHTML += "<span style='color: " + colors[(playername+1)%2] + "'>" +  "You: </span>" + event.target.value + "<br>";
             socket.emit("newmessagesent", {"message": event.target.value})
             document.querySelector("#chat-input").value = "";
+            gotoBottom();
         }
     }
+}
+
+const gotoBottom = () => {
+    var element = document.querySelector("#chat-area");
+    element.scrollTop = element.scrollHeight - element.clientHeight;
 }
 
 const newMessageReceived = (message) => {
     var colors = ["blue", "red"];
     var playernames = ["Player1", "Player2"];
     document.querySelector("#chat-area").innerHTML += "<span style='color: " + colors[playername%2] + "'>" + playernames[playername%2] + ": </span>" + message +"<br>";
+    gotoBottom();
 }
 
 const setGameArea = () => {
