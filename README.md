@@ -8,4 +8,4 @@ Tech stack used:
     <li>Javascript</li>
 </ul>
 
-Game url: http://boxgames.herokuapp.com/boxit/
+Game url: https://boxgames.onrender.com/
