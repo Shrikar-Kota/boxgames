@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Tic Tac Toe</title>
+    <link rel="icon" type="image/x-icon" href="/tictactoe/media/tictactoe.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+    <style>
+      .btn-fit {
+        min-width: 70% !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="col-12 my-5">
+      <div class="col-sm-6 col-lg-3 col-12 mx-auto p-3 pb-5 border shadow-lg text-center">
+        <div class="col my-5">
+          <h3 style="color: blue">TIC TAC TOE</h3>
+        </div>
+        <div class="col my-3">
+          <a class="btn btn-md btn-fit btn-primary text-center" href="{{ url_for('tictactoe_api.local_singleplayer_game') }}">
+            Single-Player
+          </a>
+        </div>
+        <div class="col my-3">
+          <a class="btn btn-md btn-fit btn-success text-center" href="{{ url_for('tictactoe_api.local_home') }}">
+            Multi-Player
+          </a>
+        </div>
+        <div class="col my-3">
+          <a class="btn btn-md btn-fit btn-danger text-center" href="{{ url_for('tictactoe_api.home') }}">
+            Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

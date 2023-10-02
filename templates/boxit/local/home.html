@@ -1,12 +1,13 @@
 <html>
   <head>
-    <title>
-      Box It
-    </title>
+    <title>Box It</title>
     <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
     <style>
-      .btn-fit{
+      .btn-fit {
         min-width: 70% !important;
       }
     </style>
@@ -19,21 +20,16 @@
         </div>
         <div class="col my-3">
           <a class="btn btn-md btn-fit btn-primary text-center" href="{{ url_for('boxit_api.local_home') }}">
-            Local
+            Single-Player
           </a>
         </div>
         <div class="col my-3">
-          <a class="btn btn-md btn-fit btn-success text-center" href="{{ url_for('boxit_api.online_home') }}">
-            Online
+          <a class="btn btn-md btn-fit btn-success text-center" href="{{ url_for('boxit_api.local_multiplayer_game') }}">
+            Multi-Player
           </a>
         </div>
         <div class="col my-3">
-          <a class="btn btn-md btn-fit btn-info text-center" href="{{ url_for('boxit_api.howtoplay') }}">
-            How to Play
-          </a>
-        </div>
-        <div class="col my-3">
-          <a class="btn btn-md btn-fit btn-danger text-center" href="{{ url_for('index') }}">
+          <a class="btn btn-md btn-fit btn-danger text-center" href="{{ url_for('boxit_api.home') }}">
             Home
           </a>
         </div>

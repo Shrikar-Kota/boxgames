@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>
+            Tic Tac Toe
+        </title>
+        <link rel="icon" type="image/x-icon" href="/tictactoe/media/tictactoe.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="col-12 my-5">
+            <div class="col-11 my-2 mx-auto p-3 pb-5 border shadow-lg">
+                <div class="col mt-3 mb-5 text-center">
+                    <h1 style="color: blue;">TIC TAC TOE</h1>
+                </div>
+                <div class="col my-2">
+                    <h3><b>About Game</b></h3>
+                </div>
+                <div class="col my-4">
+                    Tic-Tac-Toe is certainly a game you are familiar with. You realize how easy the game is? The majority of individuals believe that. Tic-Tac-Toe isn't actually as easy as you believe, though, once you give it some serious thought. Many games, including tic-tac-toe, require players to anticipate their opponents' moves and try to predict what they could do next.
+                </div>
+                <div class="col mt-5 mb-2">
+                    <h3><b>How to Play</b></h3>
+                </div>
+                <div class="col my-4">
+                    The game is played on a three by three square grid. You are X, and your friend is O in this scenario (or the computer). Each player places a mark in an open area in turn. The winner is the first person to acquire three of her markings in a row (up, down, across, or diagonally). The game is ended when all nine squares are filled. The game finishes in a draw if no player scores three points in a succession.
+                </div>
+                <div class="col mt-5 text-center">
+                    <a class="btn btn-lg btn-primary" href="{{ url_for('tictactoe_api.home') }}">
+                        Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <title>Tic Tac Toe</title>
+    <link rel="icon" type="image/x-icon" href="/tictactoe/media/tictactoe.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/tictactoe/js/local/singleplayer.js" type="text/javascript"></script>
+    <style>
+        .btn-fit{
+            min-width: 50% !important;
+        }
+        .cell{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+  </head>
+  <body onload="performOnLoad()">
+    <div class="d-flex min-vh-100">
+        <div class="col-lg-6 col-12 mx-auto my-3 p-3 border shadow-lg text-center" id="main-area">
+            <div id="controls-area" class="py-3">
+                <div class="col mb-3">
+                    <button class="btn btn-md btn-fit btn-primary" id="playbutton">
+                        Play
+                    </button>
+                </div>
+                <div class="col my-3">
+                    <button class="btn btn-md btn-fit btn-success" id="replaybutton">
+                        Replay
+                    </button>
+                </div>
+                <div class="col mt-3">
+                    <a class="btn btn-md btn-fit btn-danger" href="{{ url_for('tictactoe_api.local_home') }}">
+                        Home
+                    </a>
+                </div>
+            </div>
+            <div id="game-area" class="invisible">
+                <div class="col-12 mx-auto">
+                    <div id="score-area" class="pb-3">
+                        <div class='col-lg-7 col-12 mx-auto'>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    Game Details
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-left">
+                                    Player: <span id="p-symbol"></span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    Computer: <span id="c-symbol"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center" id="info-div">
+                                    Turn: <span id="turn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-lg-7 col-12 mx-auto' id="game-board">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="gamedetails-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto font-weight-bold">Game Details</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="mb-4 font-weight-bold">
+                            Difficulty Level
+                        </div>
+                        <div class="col my-2">
+                            <button class="btn btn-md btn-easy btn-fit btn-outline-success">
+                                Easy
+                            </button>
+                        </div>
+                        <div class="col my-2">
+                            <button class="btn btn-md btn-medium btn-fit btn-outline-warning">
+                                Medium
+                            </button>
+                        </div>
+                        <div class="col my-2">
+                            <button class="btn btn-md btn-hard btn-fit btn-outline-danger">
+                                Hard
+                            </button>
+                        </div>
+                        <hr/>
+                        <div class="my-3">
+                            <div class="mb-4 font-weight-bold">
+                                Symbol
+                            </div>
+                            <div>
+                                <button type="button" class="symbol-x-btn mx-2 btn btn-sm btn-outline-danger" style="height: 2.5rem !important; width: 2.5rem !important;"><span style="font-size: 1.25rem;">X</span></button>
+                                <button type="button" class="symbol-o-btn mx-2 btn btn-sm btn-outline-primary" style="height: 2.5rem !important; width: 2.5rem !important;"><span style="font-size: 1.25rem;">O</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary mx-auto" id="savedetails">Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="gameresult-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title mx-auto font-weight-bold" id="gameresult-header"></h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div id="gameresult-text"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

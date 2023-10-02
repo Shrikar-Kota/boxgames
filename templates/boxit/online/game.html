@@ -1,0 +1,159 @@
+<html>
+<head>
+    <title>Box It</title>
+    <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+    <script src="/boxit/js/online/game.js" type="text/javascript"></script>
+    <style>
+        .btn-fit {
+            min-width: 50% !important;
+        }
+
+        #chat-input:focus {
+            outline: none !important;
+            border: 0px;
+            border-top: 1px solid black;
+        }
+    </style>
+</head>
+
+<body onload="performOnLoad()">
+    <div class="d-flex min-vh-100">
+        <div class="col-lg-6 col-12 mx-auto my-3 p-3 border shadow-lg text-center">
+            <div class="col mb-3">
+                <b>Room Id: {{ roomid }}</b>
+            </div>
+            <div class="col my-3">
+                <button class="btn btn-md btn-fit btn-success" id="restartbutton">
+                    Restart
+                </button>
+            </div>
+            <div class="col my-3">
+                <a class="btn btn-md btn-fit btn-danger" id="homebutton" href="{{ url_for('boxit_api.home') }}">
+                    Home
+                </a>
+            </div>
+            <div class="col-12 mx-auto mt-3" id="gamearea">
+                <div class='col-lg-7 col-12 mx-auto mb-3' id="score-area">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            Score
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            Player1: <span id="p1-score"></span>
+                        </div>
+                        <div class="col-6 text-right">
+                            Player2: <span id="p2-score"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            You are: <span id="playername">Player {{ playername }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center" id="info-div">
+                            Turn: <span id="turn"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-7 col-12 mx-auto' id="gameboard">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 mb-3 d-none d-lg-block" style="position: fixed; bottom: 0; right: 0;">
+        <div id="chat-minimized" class="border border-dark text-right"
+            style="width: 100%; height: 30px; background-color: rgb(94, 92, 92); border-radius: 0.2rem">
+            <button class="btn btn-sm btn-danger" id="maximize-chat-window-btn" style="max-height: 100%;">+</button>
+        </div>
+        <div id="chat-maximized" class="border border-dark invisible"
+            style="width: 100%; height: 260px; border-radius: 0.2rem">
+            <div id="chat-minimized" class="border border-dark text-right"
+                style="width: 100%; height: 30px; background-color: rgb(94, 92, 92)">
+                <button class="btn btn-sm btn-danger" id="minimize-chat-window-btn" style="max-height: 100%;">-</button>
+            </div>
+            <div id="chat-area" class="pl-1"
+                style="width: 100%; height: 200px; overflow-y: scroll; word-wrap: break-word; background-color: white">
+                <br>
+            </div>
+            <input id="chat-input" style="width: 100%; height: 27px; border: 0px; border-top: 1px solid black">
+        </div>
+    </div>
+    <div class="modal" id="playerwon-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    Player <span id="winner-player"></span> won the game!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="restartdecline-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    Restart Request Declined
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="restartaccept-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    Restart Request Accepted
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="restartrequested-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    Restart Request Sent...<br>
+                    Waiting for response.<br><br>
+                    <span class='spinner-border text-info' role='status'></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="restartresponse-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    Opponent wants to restart the game.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        id="requestacceptbutton">Accept</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        id="requestrejectbutton">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var roomid = "{{ roomid }}";
+        roomid = parseInt(roomid);
+        var playername = "{{ playername }}";
+        var homeurl = "{{ url_for('boxit_api.home') }}";
+        playername = parseInt(playername)
+    </script>
+</body>
+</html>

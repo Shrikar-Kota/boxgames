@@ -1,9 +1,9 @@
 <html>
   <head>
     <title>
-      Box It
+    Tic Tac Toe
     </title>
-    <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
+    <link rel="icon" type="image/x-icon" href="/tictactoe/media/tictactoe.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
       .btn-fit{
@@ -15,20 +15,20 @@
     <div class="col-12 my-5">
       <div class="col-sm-6 col-lg-3 col-12 mx-auto p-3 pb-5 border shadow-lg text-center">
         <div class="col my-5">
-          <h3 style="color: blue">BOX IT</h3>
+          <h3 style="color: blue">TIC TAC TOE</h3>
         </div>
         <div class="col my-3">
-          <a class="btn btn-md btn-fit btn-primary text-center" href="{{ url_for('boxit_api.local_home') }}">
+          <a class="btn btn-md btn-fit btn-primary text-center" href="{{ url_for('tictactoe_api.local_home') }}">
             Local
           </a>
         </div>
         <div class="col my-3">
-          <a class="btn btn-md btn-fit btn-success text-center" href="{{ url_for('boxit_api.online_home') }}">
+          <a class="btn btn-md btn-fit btn-success text-center" href="{{ url_for('tictactoe_api.home') }}">
             Online
           </a>
         </div>
         <div class="col my-3">
-          <a class="btn btn-md btn-fit btn-info text-center" href="{{ url_for('boxit_api.howtoplay') }}">
+          <a class="btn btn-md btn-fit btn-info text-center" href="{{ url_for('tictactoe_api.howtoplay') }}">
             How to Play
           </a>
         </div>

@@ -1,0 +1,19 @@
+.invisible {
+    display: none;
+}
+
+#score-area{
+    font-weight: bold;
+}
+
+#p1-score{
+    color: blue;
+}
+
+#p2-score{
+    color: red;
+}
+  
+.btn-fit{
+    min-width: 30% !important;
+}

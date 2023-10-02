@@ -1,0 +1,100 @@
+<html>
+  <head>
+    <title>Box It</title>
+    <link rel="icon" type="image/x-icon" href="/boxit/media/boxit.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"></script>
+    <script src="/boxit/js/online/home.js"></script>
+    <style>
+      .btn-fit {
+        min-width: 70% !important;
+      }
+    </style>
+  </head>
+  <body onload="performOnLoad()">
+    <div class="col-12 my-5">
+      <div class="col-sm-6 col-lg-3 col-12 mx-auto p-3 pb-5 border shadow-lg text-center">
+        <div class="col my-5">
+          <h3 style="color: blue">BOX IT</h3>
+        </div>
+        <div class="col my-3">
+          <button class="btn btn-md btn-fit btn-primary text-center" id="join-room">
+            Join Room
+          </button>
+        </div>
+        <div class="col my-3">
+          <button class="btn btn-md btn-fit btn-success text-center" id="create-room">
+            Create Room
+          </button>
+        </div>
+        <div class="col my-3">
+          <a class="btn btn-md btn-fit btn-danger text-center" href="{{ url_for('boxit_api.home') }}">
+            Home
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="joinroom-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mx-auto">Enter Room ID</h5>
+          </div>
+          <div class="modal-body text-center">
+            <input class="form-control text-center" id="roomid-field">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="joinroom-button">Join Room</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="invalidroom-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title mx-auto">Room not found</h5>
+          </div>
+          <div class="modal-body text-center">
+            The room with the id entered couldn't be found.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="joinloader-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            Finding Room...<br>
+            Please wait.. <br><br>
+            <span class='spinner-border text-info' role='status'></span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="createloader-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            Creating Room...<br>
+            Please wait.. <br><br>
+            <span class='spinner-border text-info' role='status'></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var onlineurl = "{{ url_for('boxit_api.online_multiplayer_game') }}";
+      var waitinglobbyurl = "{{ url_for('boxit_api.online_waitinglobby') }}";
+    </script>
+  </body>
+</html>
